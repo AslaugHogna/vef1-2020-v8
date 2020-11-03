@@ -5,6 +5,7 @@
  * Þ.e.a.s., ekki þarf að skrifa meðhöndlun á HTML elementum sem vantar
  */
 
+
 /**
  * Kóðar streng með því að hliðra honum um n stök.
  *
@@ -14,7 +15,24 @@
  * @returns {string} Upprunalegi strengurinn hliðraður um n til hægri
  */
 function encode(str, n, alphabet = '') {
-  return '';
+  console.log(str);
+  console.log(n);
+  console.log(alphabet);
+  let STR = str.toLocaleUpperCase();
+  let str_coded ="";
+
+  for (let i = 0; i < STR.length; i++) {
+    let ind = alphabet.indexOf(STR[i]);
+    let newind;
+    
+    if (ind + n < alphabet.length) {
+      newind = ind + n; 
+    } else {
+      newind = ind + n - alphabet.length; 
+    }
+    str_coded += alphabet[newind];
+  }
+  return str_coded;
 }
 
 /**
@@ -26,8 +44,23 @@ function encode(str, n, alphabet = '') {
  * @returns {string} Upprunalegi strengurinn hliðraður um n til vinstri
  */
 function decode(str, n, alphabet = '') {
-  return '';
+
+  let str_decoded ="";
+
+  for (let i = 0; i < str.length; i++) {
+    let ind = alphabet.indexOf(str[i]);
+    let newind;
+
+    if (ind - n < 0) {
+      newind = ind - n + alphabet.length; 
+    } else {
+      newind = ind - n; 
+    }
+    str_decoded += (alphabet[newind]);  
+  }
+  return str_decoded;
 }
+
 
 const Caesar = (() => {
   // Default stafróf, uppfært þegar slegið inn í "alphabet"
@@ -39,8 +72,53 @@ const Caesar = (() => {
   // Default hliðrun, uppfært af "shift"
   let shift = 3;
 
+  let strengur = '';
+
+    
   function init(el) {
-    // Setja event handlera á viðeigandi element
+    // Setja event handlera á viðeigandi element (el)
+    
+    const shiftBy = document.querySelector('#shift');
+    shiftBy.addEventListener('change', shiftn);
+
+    const radios = document.querySelectorAll('input[type=radio]');
+    for (let i = 0; i < radios.length; i++) {
+      radios[i].addEventListener('change', radioChanged);
+    } 
+    
+    const input = document.querySelector('input[name=input]');
+    input.addEventListener('input', textinput);
+
+    const alphinput = document.querySelector('#alphabet');
+    alphinput.addEventListener('input', alphab);
+ 
+  }
+      
+  function radioChanged(e) {
+    console.log(`Radio value = ${e.target.value}`);
+    type = e.target.value;
+    console.log(type);
+  }
+
+  function textinput() {
+      strengur = input.value;
+      console.log(strengur + 123);
+  }
+
+  function alphab() {
+    alphabet = input.value;
+    
+  }
+
+  function shiftn() {
+
+  }
+
+  const result = document.querySelector('.result');
+  if (type = 'encode') {
+    result.textContent = encode(strengur, shift, alphabet) + "E";
+  } else if (type = 'decode') {
+    result.textContent = decode(strengur, shift, alphabet) + "D";
   }
 
   return {
