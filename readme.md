@@ -1,3 +1,8 @@
+ATHS:
+Mér fannst ég vera að gera rétt það sem ég gerði, en fékk þetta samt ekki til að virka og rann út á tíma. Vonandi er kóðinn sem ég þó skrifaði einhvers virði :)
+
+
+
 # Verkefni 8
 
 ## Lýsing
